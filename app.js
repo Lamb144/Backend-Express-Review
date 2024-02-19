@@ -4,6 +4,7 @@ const cors = require("cors")
 
 const bourbonsController = require("./controllers/bourbonsController.js")
 
+// MiddleWare
 app.use(express.json())
 app.use(cors())
 app.use("/bourbons", bourbonsController)

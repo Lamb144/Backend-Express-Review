@@ -2,6 +2,8 @@ const express = require("express")
 
 const bourbons = express.Router()
 
+const { checkName } = require("../middleware/nameValidation.js") // Importing the checkName function from the nameValidation.js file
+
 // http://localhost/bourbons
 bourbons.get("/", (req, res) => {
     res.status(200).json({ message: "Bourbons Home Page" })
@@ -23,5 +25,35 @@ bourbons.get("/:bourbonsID", (req, res) => {
 
 })
 
+bourbons.post("/", checkName, (req, res) => {
+    const body = req.body
+    // console.log(body);
+    res.status(200).json({
+        message:
+            body
+    })
+})
+
+
+
+
+
+
+
+
 module.exports = bourbons
+
+// http://localhost:3001
+/* req = {
+    body: {
+
+    },
+    params : {
+        videogameID: "destiny"
+    },
+    query : {
+        name : "code"
+    }
+
+} */
 
