@@ -20,8 +20,28 @@ const getOneBourbon = async (bourbonsID) => {
     }
 }
 
+const updateBourbon = async (idValue, valueObj) => {
+    try {
+        const updatedBourbon = await db.one('UPDATE amberoak_dev SET bourbon_name=$1, geographic_orgin=$2,abv=$3, description=$4 WHERE id=$5 RETURNING *', [
+            valueObj.bourbon_name,
+            valueObj.geographic_orgin,
+            valueObj.abv,
+            valueObj.description,
+            idValue
+        ])
+
+        return updatedBourbon
+
+    } catch (error) {
+        return error
+    }
+}
+
+
+
 
 module.exports = {
     getAllBourbons,
-    getOneBourbon
+    getOneBourbon,
+    updateBourbon
 }

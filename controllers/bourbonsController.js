@@ -4,7 +4,7 @@ const bourbons = express.Router()
 
 const { checkName } = require("../middleware/nameValidation.js") // Importing the checkName function from the nameValidation.js file
 
-const { getAllBourbons, getOneBourbon } = require("../queries/amberoak.js")
+const { getAllBourbons, getOneBourbon, updateBourbon } = require("../queries/amberoak.js")
 //--------------------Get ALL
 // http://localhost/bourbons
 bourbons.get("/", async (req, res) => {
@@ -12,7 +12,7 @@ bourbons.get("/", async (req, res) => {
     res.status(200).json(allBourbons)
 })
 
-//----------------Get one by
+//----------------Get one by ID
 bourbons.get("/:bourbonsID", async (req, res) => {
     const bourbonsID = req.params.bourbonsID
 
@@ -27,7 +27,7 @@ bourbons.get("/:bourbonsID", async (req, res) => {
     }
 
 })
-
+//--------------------Get Post
 bourbons.post("/", checkName, (req, res) => {
     const body = req.body
     // console.log(body);
@@ -36,16 +36,25 @@ bourbons.post("/", checkName, (req, res) => {
             body
     })
 })
-
-bourbons.put("/:bourbonsID", checkName, (req, res) => {
+//------------------Get Put
+bourbons.put("/:bourbonsID", async (req, res) => {
     const bourbonsID = req.params.bourbonsID
     const body = req.body
-    res.status(200).json({ body: body, bourbonID: bourbonsID })
+    const updatedBourbon = await updateBourbon(bourbonsID, body)
+
+
+    if (updatedBourbon.id) {
+        res.status(200).json(updatedBourbon)
+    }
+    else {
+        res.status(404).json(updateBourbon)
+    }
 
 })
-
+// ----------------Delete
 bourbons.delete("/:bourbonsID", (req, res) => {
     const bourbonsID = req.params.bourbonsID
+
 
     if (Number(bourbonsID)) {
         res.status(200).json({ message: `delete ${bourbonsID}` })
