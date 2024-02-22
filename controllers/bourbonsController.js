@@ -4,9 +4,12 @@ const bourbons = express.Router()
 
 const { checkName } = require("../middleware/nameValidation.js") // Importing the checkName function from the nameValidation.js file
 
+const { getAllAmberoaks } = require("../queries/amberoak.js")
+
 // http://localhost/bourbons
-bourbons.get("/", (req, res) => {
-    res.status(200).json({ message: "Bourbons Home Page" })
+bourbons.get("/", async (req, res) => {
+    const allAmberoaks = await getAllAmberoaks()
+    res.status(200).json(allAmberoaks)
 })
 
 
@@ -34,6 +37,27 @@ bourbons.post("/", checkName, (req, res) => {
     })
 })
 
+bourbons.put("/:bourbonsID", checkName, (req, res) => {
+    const bourbonsID = req.params.bourbonsID
+    const body = req.body
+    res.status(200).json({ body: body, bourbonID: bourbonsID })
+
+})
+
+bourbons.delete("/:bourbonsID", (req, res) => {
+    const bourbonsID = req.params.bourbonsID
+
+    if (Number(bourbonsID)) {
+        res.status(200).json({ message: `delete ${bourbonsID}` })
+
+    }
+    else {
+        res.status(404).json({
+            error: " bourbons id must be a numeric value"
+        })
+    }
+
+})
 
 
 
@@ -49,7 +73,7 @@ module.exports = bourbons
 
     },
     params : {
-        videogameID: "destiny"
+        videogameID: "somthing here"
     },
     query : {
         name : "code"

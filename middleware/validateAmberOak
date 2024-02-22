@@ -1,0 +1,13 @@
+function validateAmberOak(req, res, next) {
+    const body = req.body
+
+    if (body.name) {
+        console.log(body.name); // this function checks if rthe request contains the given function body perameters 
+    }
+    if (!body.name || !body.description) {
+        res.status(404).json({ payload: "Please make sure you you have AT LEAST a name AND description for the bourbon" })
+    }
+    next()
+}
+
+module.exports = { validateAmberOak }

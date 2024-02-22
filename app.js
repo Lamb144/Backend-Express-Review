@@ -11,7 +11,7 @@ app.use("/bourbons", bourbonsController)
 
 // http://localhost:3001
 app.get("/", (req, res) => {
-    res.status(200).send("<h1>Test Backend Server<h1>")
+    res.status(200).send("Welcome to Amber & Oak")
 })
 
 app.get("*", (req, res) => {
