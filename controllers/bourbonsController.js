@@ -4,21 +4,21 @@ const bourbons = express.Router()
 
 const { checkName } = require("../middleware/nameValidation.js") // Importing the checkName function from the nameValidation.js file
 
-const { getAllAmberoaks } = require("../queries/amberoak.js")
-
+const { getAllBourbons, getOneBourbon } = require("../queries/amberoak.js")
+//--------------------Get ALL
 // http://localhost/bourbons
 bourbons.get("/", async (req, res) => {
-    const allAmberoaks = await getAllAmberoaks()
-    res.status(200).json(allAmberoaks)
+    const allBourbons = await getAllBourbons()
+    res.status(200).json(allBourbons)
 })
 
-
-bourbons.get("/:bourbonsID", (req, res) => {
+//----------------Get one by
+bourbons.get("/:bourbonsID", async (req, res) => {
     const bourbonsID = req.params.bourbonsID
 
     if (Number(bourbonsID)) {
-        res.status(200).json({ message: bourbonsID })
-
+        const oneBourbon = await getOneBourbon(bourbonsID)
+        res.status(200).json(oneBourbon)
     }
     else {
         res.status(404).json({
