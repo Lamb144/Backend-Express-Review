@@ -37,11 +37,22 @@ const updateBourbon = async (idValue, valueObj) => {
     }
 }
 
+const deleteBourbon = async (bourbonsID) => {
+    try {
+        const deletedBourbon = await db.one('DELETE FROM amberoak_dev WHERE id=$1 RETURNING *', bourbonsID)
+        return deletedBourbon
+
+    } catch (error) {
+        return error
+    }
+}
+
 
 
 
 module.exports = {
     getAllBourbons,
     getOneBourbon,
-    updateBourbon
+    updateBourbon,
+    deleteBourbon
 }

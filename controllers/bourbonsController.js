@@ -4,7 +4,7 @@ const bourbons = express.Router()
 
 const { checkName } = require("../middleware/nameValidation.js") // Importing the checkName function from the nameValidation.js file
 
-const { getAllBourbons, getOneBourbon, updateBourbon } = require("../queries/amberoak.js")
+const { getAllBourbons, getOneBourbon, updateBourbon, deleteBourbon } = require("../queries/amberoak.js")
 //--------------------Get ALL
 // http://localhost/bourbons
 bourbons.get("/", async (req, res) => {
@@ -52,12 +52,19 @@ bourbons.put("/:bourbonsID", async (req, res) => {
 
 })
 // ----------------Delete
-bourbons.delete("/:bourbonsID", (req, res) => {
+bourbons.delete("/:bourbonsID", async (req, res) => {
     const bourbonsID = req.params.bourbonsID
 
 
     if (Number(bourbonsID)) {
-        res.status(200).json({ message: `delete ${bourbonsID}` })
+        const deletedBourbon = await deleteBourbon(bourbonsID)
+
+        if (deletedBourbon.id) {
+            res.status(200).json(deletedBourbon)
+        }
+        else {
+            res.send(500).json(deletedBourbon)
+        }
 
     }
     else {
@@ -65,8 +72,8 @@ bourbons.delete("/:bourbonsID", (req, res) => {
             error: " bourbons id must be a numeric value"
         })
     }
-
 })
+
 
 
 
