@@ -5,7 +5,7 @@
 ---step 2 --- insert values into the datatables
 
 INSERT INTO amberoak_dev (
-    bourbon_name, geographic_orgin,abv,tasting_notes,food_pairings,description
+    bourbon_name, geographic_origin,abv,tasting_notes,food_pairings,description
 )
 VALUES 
 ('Bulleit Bourbon', 'Kentucky, United States', 45, 'Dried fruit, oak, and a peppery warmth from the rye.','Dried fruit, oak, and a peppery warmth from the rye.', 'Bulleit Bourbon is inspired by the whiskey that was pioneered by Augustus Bulleit over 150 years ago. Only ingredients of the very highest quality are used. The complexity of Bulleit Bourbon comes from its unique blend of rye, corn, and barley malt, along with special strains of yeast.'),

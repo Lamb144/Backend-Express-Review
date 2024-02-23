@@ -22,9 +22,9 @@ const getOneBourbon = async (bourbonsID) => {
 
 const updateBourbon = async (idValue, valueObj) => {
     try {
-        const updatedBourbon = await db.one('UPDATE amberoak_dev SET bourbon_name=$1, geographic_orgin=$2,abv=$3, description=$4 WHERE id=$5 RETURNING *', [
+        const updatedBourbon = await db.one('UPDATE amberoak_dev SET bourbon_name=$1, geographic_origin=$2,abv=$3, description=$4 WHERE id=$5 RETURNING *', [
             valueObj.bourbon_name,
-            valueObj.geographic_orgin,
+            valueObj.geographic_origin,
             valueObj.abv,
             valueObj.description,
             idValue
@@ -47,6 +47,24 @@ const deleteBourbon = async (bourbonsID) => {
     }
 }
 
+const createBourbon = async (valueObj) => {
+    try {
+        const newBourbon = await db.one('INSERT INTO amberoak_dev (bourbon_name, geographic_origin, abv, tasting_notes, food_pairings, description) VALUES ($1,$2,$3,$4,$5,$6) RETURNING *', [
+            valueObj.bourbon_name,
+            valueObj.geographic_origin,
+            valueObj.abv,
+            valueObj.tasting_notes,
+            valueObj.food_pairings,
+            valueObj.description
+        ])
+
+        return newBourbon
+
+    } catch (error) {
+        return error
+    }
+}
+
 
 
 
@@ -54,5 +72,7 @@ module.exports = {
     getAllBourbons,
     getOneBourbon,
     updateBourbon,
-    deleteBourbon
+    deleteBourbon,
+    createBourbon
+
 }
