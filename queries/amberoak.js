@@ -1,5 +1,7 @@
 const db = require("../db/dbConfig.js");
 
+
+//  --------------READ ALL (GET)
 const getAllBourbons = async () => {
     try {
         const allAmberoaks = await db.any("SELECT * FROM amberoak_dev")
@@ -10,6 +12,7 @@ const getAllBourbons = async () => {
     }
 }
 
+//------------------READ ONE (GET)
 const getOneBourbon = async (bourbonsID) => {
     try {
         // db.one(arg1, arg2)
@@ -20,6 +23,7 @@ const getOneBourbon = async (bourbonsID) => {
     }
 }
 
+// ----------UPDATE (PUT)
 const updateBourbon = async (idValue, valueObj) => {
     try {
         const updatedBourbon = await db.one('UPDATE amberoak_dev SET bourbon_name=$1, geographic_origin=$2,abv=$3, description=$4 WHERE id=$5 RETURNING *', [
@@ -37,6 +41,7 @@ const updateBourbon = async (idValue, valueObj) => {
     }
 }
 
+// --------------DELETE
 const deleteBourbon = async (bourbonsID) => {
     try {
         const deletedBourbon = await db.one('DELETE FROM amberoak_dev WHERE id=$1 RETURNING *', bourbonsID)
@@ -47,6 +52,7 @@ const deleteBourbon = async (bourbonsID) => {
     }
 }
 
+// --------------- (CREATE)
 const createBourbon = async (valueObj) => {
     try {
         const newBourbon = await db.one('INSERT INTO amberoak_dev (bourbon_name, geographic_origin, abv, tasting_notes, food_pairings, description) VALUES ($1,$2,$3,$4,$5,$6) RETURNING *', [

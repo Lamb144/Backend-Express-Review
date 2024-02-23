@@ -7,14 +7,14 @@ const { checkName } = require("../middleware/nameValidation.js") // Importing th
 const { getAllBourbons, getOneBourbon, updateBourbon, deleteBourbon, createBourbon } = require("../queries/amberoak.js")
 
 
-//--------------------Get ALL
+//--------------------Get ALL (READ)
 // http://localhost/bourbons
 bourbons.get("/", async (req, res) => {
     const allBourbons = await getAllBourbons()
     res.status(200).json(allBourbons)
 })
 
-//--------------------Get one by ID
+//--------------------Get ONE by ID (READ)
 bourbons.get("/:bourbonsID", async (req, res) => {
     const bourbonsID = req.params.bourbonsID
 
@@ -29,7 +29,7 @@ bourbons.get("/:bourbonsID", async (req, res) => {
     }
 
 })
-//---------------------Get Post (Create)
+//--------------------- Post (Create)
 bourbons.post("/", async (req, res) => {
     const body = req.body
     // console.log(body);
@@ -44,7 +44,7 @@ bourbons.post("/", async (req, res) => {
 })
 
 
-//----------------------Get Put
+//---------------------- Put (UPDATE)
 bourbons.put("/:bourbonsID", async (req, res) => {
     const bourbonsID = req.params.bourbonsID
     const body = req.body
