@@ -9,11 +9,10 @@ const cn = {
     user: process.env.PG_USER,
     port: process.env.PG_PORT,
     database: process.env.PG_DATABASE,
-    password: process.env.PG_PASSWORD,
-    connection: process.env.CONNECTION_STRING
+    password: process.env.PG_PASSWORD
 }
 
-const db = pgp(cn)
+const db = pgp({ connectionString: process.env.CONNECTION_STRING })
 
 
-module.exports = db
+module.exports = db;
