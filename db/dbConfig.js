@@ -12,7 +12,7 @@ const cn = {
     password: process.env.PG_PASSWORD
 }
 
-const db = pgp({ connectionString: process.env.CONNECTION_STRING })
+const db = pgp(cn)
 
 
-module.exports = db;
+module.exports = db
