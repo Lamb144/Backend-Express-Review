@@ -4,7 +4,7 @@
 
 ---step 2 --- insert values into the datatables
 
-INSERT INTO amberoak_dev (
+INSERT INTO amberoak_dev ( 
     bourbon_name, geographic_origin,abv,tasting_notes,food_pairings,description
 )
 VALUES 
